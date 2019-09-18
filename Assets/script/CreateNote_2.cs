@@ -275,7 +275,7 @@ public class CreateNote_2 : MonoBehaviour
 
 
     //判断打击评价、得分
-    void SetScore(GameObject note, GameObject fire)
+    bool SetScore(GameObject note, GameObject fire)
     {
         if (Vector3.Distance(note.transform.position, fire.transform.position) <= 0.5f)
         {
@@ -288,6 +288,7 @@ public class CreateNote_2 : MonoBehaviour
             combo += 1;
             comboText.GetComponent<Text>().text = combo + "combo!";
             mp += 5;
+            return true;
         }
         else if ((Vector3.Distance(note.transform.position, fire.transform.position) <= 1.0f && (Vector3.Distance(note.transform.position, fire.transform.position) > 0.5f)))
         {
@@ -300,6 +301,7 @@ public class CreateNote_2 : MonoBehaviour
             combo += 1;
             comboText.GetComponent<Text>().text = combo + "combo!";
             mp += 2;
+            return true;
         }
         else if ((Vector3.Distance(note.transform.position, fire.transform.position) <= 1.5f && (Vector3.Distance(note.transform.position, fire.transform.position) > 1.0f)))
         {
@@ -312,6 +314,11 @@ public class CreateNote_2 : MonoBehaviour
             combo += 1;
             comboText.GetComponent<Text>().text = combo + "combo!";
             mp += 1;
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 
@@ -357,105 +364,228 @@ public class CreateNote_2 : MonoBehaviour
         r_attack_tag = false;
     }
 
+
     //E F J I W O 空格 七个键位
     void ControlPlayer()
-	{ 
-        for (int i = 0; i < noteList.Count; ++i)
+	{
+        if (Input.GetKeyDown(KeyCode.F))
         {
-            GameObject note = noteList[i];
-            if (Input.GetKeyDown(KeyCode.F))
+            for (int i = 0; i < noteList.Count; ++i)
             {
+                GameObject note = noteList[i];
                 if (l_attack_tag)
                 {
                     for (int j = 0; j < attackNoteList.Count; ++j)
                     {
                         GameObject attack_note = attackNoteList[j];
-                        SetScore(attack_note, fire1);
+                        if (SetScore(attack_note, fire1))
+                        {
+                            break;
+                        }
+                        if (!SetScore(attack_note, fire1))
+                        {
+                            standardText.GetComponent<Text>().text = "Bad!";
+                            combo = 0;
+                            comboText.GetComponent<Text>().text = "";
+                        }
                     }
                     l_attack_tag = false;
                 }
                 fire1.SetActive(true);
-                SetScore(note, fire1);
                 StartCoroutine("hide");
+                if (SetScore(note, fire1))
+                {
+                    break;
+                }
+                if (!SetScore(note, fire1))
+                {
+                    standardText.GetComponent<Text>().text = "Bad!";
+                    combo = 0;
+                    comboText.GetComponent<Text>().text = "";
+                }
             }
-            if (Input.GetKeyDown(KeyCode.E))
+        }
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            for (int i = 0; i < noteList.Count; ++i)
             {
+                GameObject note = noteList[i];
                 if (l_attack_tag)
                 {
                     for (int j = 0; j < attackNoteList.Count; ++j)
                     {
                         GameObject attack_note = attackNoteList[j];
-                        SetScore(attack_note, fire2);
+                        if (SetScore(attack_note, fire2))
+                        {
+                            break;
+                        }
+                        if (!SetScore(attack_note, fire2))
+                        {
+                            standardText.GetComponent<Text>().text = "Bad!";
+                            combo = 0;
+                            comboText.GetComponent<Text>().text = "";
+                        }
                     }
                     l_attack_tag = false;
                 }
                 fire2.SetActive(true);
-                SetScore(note, fire2);
                 StartCoroutine("hide");
+                if (SetScore(note, fire2))
+                {
+                    break;
+                }
+                if (!SetScore(note, fire2))
+                {
+                    standardText.GetComponent<Text>().text = "Bad!";
+                    combo = 0;
+                    comboText.GetComponent<Text>().text = "";
+                }
             }
-            if (Input.GetKeyDown(KeyCode.I))
+        }
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            for (int i = 0; i < noteList.Count; ++i)
             {
+                GameObject note = noteList[i];
                 if (r_attack_tag)
                 {
                     for (int j = 0; j < attackNoteList.Count; ++j)
                     {
                         GameObject attack_note = attackNoteList[j];
-                        SetScore(attack_note, fire3);
+                        if (SetScore(attack_note, fire3))
+                        {
+                            break;
+                        }
+                        if (!SetScore(attack_note, fire3))
+                        {
+                            standardText.GetComponent<Text>().text = "Bad!";
+                            combo = 0;
+                            comboText.GetComponent<Text>().text = "";
+                        }
                     }
                     r_attack_tag = false;
                 }
                 fire3.SetActive(true);
-                SetScore(note, fire3);
                 StartCoroutine("hide");
+                if (SetScore(note, fire3))
+                {
+                    break;
+                }
+                if (!SetScore(note, fire3))
+                {
+                    standardText.GetComponent<Text>().text = "Bad!";
+                    combo = 0;
+                    comboText.GetComponent<Text>().text = "";
+                }
             }
-            if (Input.GetKeyDown(KeyCode.J))
+        }
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            for (int i = 0; i < noteList.Count; ++i)
             {
+                GameObject note = noteList[i];
                 if (r_attack_tag)
                 {
                     for (int j = 0; j < attackNoteList.Count; ++j)
                     {
                         GameObject attack_note = attackNoteList[j];
-                        SetScore(attack_note, fire4);
+                        if(SetScore(attack_note, fire4))
+                        {
+                            break;
+                        }
+                        if (!SetScore(attack_note, fire4))
+                        {
+                            standardText.GetComponent<Text>().text = "Bad!";
+                            combo = 0;
+                            comboText.GetComponent<Text>().text = "";
+                        }
                     }
                     r_attack_tag = false;
                 }
                 fire4.SetActive(true);
-                SetScore(note, fire4);
                 StartCoroutine("hide");
-            }
-        }
-
-
-        for (int i = 0; i < attackNoteList.Count; ++i)
-        {
-            GameObject attack_note = attackNoteList[i];
-            if (Input.GetKeyDown(KeyCode.W))
-            {
-                StartCoroutine("l_attack");
-                if (fire1.activeInHierarchy)
+                if (SetScore(note, fire4))
                 {
-                    SetScore(attack_note, fire1);
+                    break;
                 }
-                if (fire2.activeInHierarchy)
+                if (!SetScore(note, fire4))
                 {
-                    SetScore(attack_note, fire2);
-                }
-            }
-            if (Input.GetKeyDown(KeyCode.O))
-            {
-                StartCoroutine("r_attack");
-                if (fire3.activeInHierarchy)
-                {
-                    SetScore(attack_note, fire3);
-                }
-                if (fire4.activeInHierarchy)
-                {
-                    SetScore(attack_note, fire4);
+                    standardText.GetComponent<Text>().text = "Bad!";
+                    combo = 0;
+                    comboText.GetComponent<Text>().text = "";
                 }
             }
         }
         
-
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            StartCoroutine("l_attack");
+            for (int i = 0; i < attackNoteList.Count; ++i)
+            {
+                GameObject attack_note = attackNoteList[i];
+                if (fire1.activeInHierarchy)
+                {
+                    if (SetScore(attack_note, fire1))
+                    {
+                        break;
+                    }
+                    if (!SetScore(attack_note, fire1))
+                    {
+                        standardText.GetComponent<Text>().text = "Bad!";
+                        combo = 0;
+                        comboText.GetComponent<Text>().text = "";
+                    }
+                }
+                if (fire2.activeInHierarchy)
+                {
+                    if (SetScore(attack_note, fire2))
+                    {
+                        break;
+                    }
+                    if (!SetScore(attack_note, fire2))
+                    {
+                        standardText.GetComponent<Text>().text = "Bad!";
+                        combo = 0;
+                        comboText.GetComponent<Text>().text = "";
+                    }
+                }
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            StartCoroutine("r_attack");
+            for (int i = 0; i < attackNoteList.Count; ++i)
+            {
+                GameObject attack_note = attackNoteList[i];
+                if (fire3.activeInHierarchy)
+                {
+                    if (SetScore(attack_note, fire3))
+                    {
+                        break;
+                    }
+                    if (!SetScore(attack_note, fire3))
+                    {
+                        standardText.GetComponent<Text>().text = "Bad!";
+                        combo = 0;
+                        comboText.GetComponent<Text>().text = "";
+                    }
+                }
+                if (fire4.activeInHierarchy)
+                {
+                    if (SetScore(attack_note, fire4))
+                    {
+                        break;
+                    }
+                    if (!SetScore(attack_note, fire4))
+                    {
+                        standardText.GetComponent<Text>().text = "Bad!";
+                        combo = 0;
+                        comboText.GetComponent<Text>().text = "";
+                    }
+                }
+            }
+        }
+        
         if (Input.GetKeyDown(KeyCode.Space) && mp == 100)
         { 
             for (int i = 0; i < noteList.Count; ++i)
